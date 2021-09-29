@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { useTheme } from "./ThemeManager";
+import Nav from "./Components/Nav";
+import About from "./Components/About";
+import NotFound from "./Components/NotFound";
+import Home from "./Components/Home";
 
-function App() {
+import { Wrapper } from "./StyleComponents/Wrapper";
+import Contact from "./Components/Contact";
+
+const App: React.FC = () => {
+  const theme = useTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={{ mode: theme.mode }}>
+      <BrowserRouter>
+        <Nav />
+        <Wrapper>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/about" component={About} exact />
+            <Route path="/contact" component={Contact} exact />
+            <Route path="/notFound" exact component={NotFound} />
+            <Redirect from="/" to="/notFound" />
+          </Switch>
+        </Wrapper>
+      </BrowserRouter>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
