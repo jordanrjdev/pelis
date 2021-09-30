@@ -57,7 +57,7 @@ export default function Nav(): React.ReactElement {
   const NavbarCollapse = styled.ul<IBtn>`
     list-style: none;
     margin: 0;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
       display: ${(props) => (props.open ? "flex" : "none")};
       flex-direction: column;
       justify-content: center;
