@@ -10,6 +10,11 @@ export const textColor: theme.ThemeSet = theme("mode", {
   dark: "#fafafa",
 });
 
+export const textSecondaryColor: theme.ThemeSet = theme("mode", {
+  light: "#2e86de",
+  dark: "#c44569",
+});
+
 export const buttonBackgroundColor = theme("mode", {
   light: "#222",
   dark: "#eee",
@@ -26,8 +31,13 @@ export const borderColor = theme("mode", {
 });
 
 export const inputBackgroundColor = theme("mode", {
-  light: "#eee",
+  light: "#c8d6e5",
   dark: "#333",
+});
+
+export const boxShadowColor = theme("mode", {
+  light: "#ccc",
+  dark: "#57606f",
 });
 
 export const navHeight = "85px";

@@ -1,11 +1,12 @@
-import styled, { ThemeProvider } from "styled-components";
-import { useTheme } from "../ThemeManager";
+import styled from "styled-components";
 import * as themeConf from "../theme";
 import { NavLink } from "react-router-dom";
+import { Fragment } from "react";
+import { useTheme } from "../ThemeManager";
+import { FaBars } from "react-icons/fa";
 
 export default function Nav(): React.ReactElement {
   const theme = useTheme();
-
   const Navbar = styled.nav`
     background: ${themeConf.backgroundColor};
     border-bottom: 1px solid ${themeConf.borderColor};
@@ -14,6 +15,15 @@ export default function Nav(): React.ReactElement {
     align-items: center;
     height: ${themeConf.navHeight};
     padding: 0 ${themeConf.navPadding};
+    > svg {
+      color: ${themeConf.textColor};
+      margin-right: ${themeConf.navPadding};
+      cursor: pointer;
+      display: none;
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+    }
   `;
 
   const Button = styled.button`
@@ -55,11 +65,12 @@ export default function Nav(): React.ReactElement {
   `;
 
   return (
-    <ThemeProvider theme={{ mode: theme.mode }}>
+    <Fragment>
       <Navbar>
         <NavbarBrand>
           <NavbarItem to="/"> Pelis</NavbarItem>
         </NavbarBrand>
+        <FaBars />
         <NavbarCollapse>
           <li>
             <Button onClick={() => theme.toggle()}>
@@ -78,6 +89,6 @@ export default function Nav(): React.ReactElement {
           </li>
         </NavbarCollapse>
       </Navbar>
-    </ThemeProvider>
+    </Fragment>
   );
 }
