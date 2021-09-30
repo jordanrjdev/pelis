@@ -1,5 +1,5 @@
-import { Title } from "../StyleComponents/Title";
+import CardContact from "./CardContact";
 
-export default function Contact() {
-  return <Title>Contactáme</Title>;
+export default function Contact(): React.ReactElement {
+  return <CardContact />;
 }
