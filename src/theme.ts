@@ -5,6 +5,11 @@ export const backgroundColor: theme.ThemeSet = theme("mode", {
   dark: "#0e0f11",
 });
 
+export const navBackgroundColor: theme.ThemeSet = theme("mode", {
+  light: "rgba(255, 255, 255, .97)",
+  dark: "rgba(0,0,0,.97)",
+});
+
 export const textColor: theme.ThemeSet = theme("mode", {
   light: "#191919",
   dark: "#fafafa",
