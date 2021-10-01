@@ -35,4 +35,11 @@ Levantando la aplicacion con el comando start
 
 ## Levantar el ambiente de desarrollo con docker
 
-Acutalmente estamos trabajando para agregar docker lo mas pronto posible en este repositorio
+Para levantar la aplicacipon con docker tendremos que clonar el repositorio como lo vimos antes y dirigirnos al root de nuestro proyecto.
+Una vez ubicados en el directorio root del proyecto debemos de ejecutar el comando:
+
+```
+  docker-compose up
+```
+
+Ahora ya tenemos que ver nuestra aplicación en el navegador en el `localhost:3000`
