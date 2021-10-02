@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Movie } from "../types";
 import MovieC from "./Movie";
+import Pagination from "./Pagination";
 
 const MovieContainer = styled.div`
   display: flex;
@@ -101,6 +102,7 @@ export default function Home(): JSX.Element {
           <MovieC movie={peli} key={peli.id} />
         ))}
       </MovieContainer>
+      <Pagination />
     </Container>
   );
 }

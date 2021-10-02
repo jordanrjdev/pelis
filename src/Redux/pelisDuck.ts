@@ -9,6 +9,7 @@ interface IPelicula {
 
 type PeliculaState = {
   peliculas: IPelicula[];
+  searched: string;
   page: number;
   total_pages: number;
   total_results: number;
@@ -22,6 +23,7 @@ type TheMVDBResponse = {
 };
 
 type PeliculaAction = {
+  searched: string;
   type: string;
   peliculas: IPelicula[] | [];
   page: number;
@@ -32,6 +34,7 @@ type PeliculaAction = {
 type DispatchType = (args: PeliculaAction) => PeliculaAction;
 
 const dataInicial: PeliculaState = {
+  searched: "",
   peliculas: [],
   page: 0,
   total_pages: 0,
@@ -53,6 +56,7 @@ export default function reducer(
         page: action.page,
         total_pages: action.total_pages,
         total_results: action.total_results,
+        searched: action.searched,
       };
     case OBTENER_PELICULAS_ERROR:
       return {
@@ -61,6 +65,7 @@ export default function reducer(
         page: 0,
         total_pages: 0,
         total_results: 0,
+        searched: action.searched,
       };
     default:
       return state;
@@ -68,14 +73,16 @@ export default function reducer(
 }
 
 export const obtenerPeliculas =
-  (data: string) => async (dispatch: DispatchType) => {
+  (data: string, page = 1) =>
+  async (dispatch: DispatchType) => {
     try {
       const response = await clienteAxios.get(
-        `movie?api_key=${process.env.REACT_APP_API_KEY}&query=${data}`
+        `movie?api_key=${process.env.REACT_APP_API_KEY}&query=${data}&page=${page}`
       );
       const themoviedbData: TheMVDBResponse = response.data;
       dispatch({
         type: OBTENER_PELICULAS,
+        searched: data,
         peliculas: themoviedbData.results,
         page: themoviedbData.page,
         total_results: themoviedbData.total_results,
@@ -84,6 +91,7 @@ export const obtenerPeliculas =
     } catch (error) {
       dispatch({
         type: OBTENER_PELICULAS_ERROR,
+        searched: data,
         peliculas: [],
         page: 0,
         total_pages: 0,
@@ -91,4 +99,11 @@ export const obtenerPeliculas =
       });
       console.log(error);
     }
+  };
+
+export const NavigatePage =
+  (page: number) =>
+  (dispatch: DispatchType, getState: () => { peliculas: PeliculaState }) => {
+    const { searched } = getState().peliculas;
+    obtenerPeliculas(searched, page)(dispatch);
   };
