@@ -1,6 +1,7 @@
 import { Movie as IMovie } from "../types";
 import styled from "styled-components";
 import * as themeConfig from "../theme";
+import StarRating from "./StartRating";
 
 const MovieWrapper = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ export default function Movie({
         }
       />
       <MovieTitle>{movie.title}</MovieTitle>
+      <StarRating stars={movie.vote_average} />
     </MovieWrapper>
   );
 }
