@@ -1,10 +1,24 @@
 import { Title } from "../StyleComponents/Title";
 import * as themeConf from "../theme";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { obtenerPeliculas } from "../Redux/pelisDuck";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { Movie } from "../types";
+import MovieC from "./Movie";
+
+const MovieContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -23,8 +37,9 @@ const Form = styled.form`
   border-radius: 4px;
   display: flex;
   align-items: center;
-  margin-top: 1em;
+  margin: 1em 0;
   justify-content: space-between;
+  max-width: 350px;
 `;
 
 const Button = styled.button`
@@ -38,6 +53,10 @@ const Button = styled.button`
 `;
 
 export default function Home(): JSX.Element {
+  const peliculas = useSelector((state: any) => state.peliculas.peliculas);
+  const total_results = useSelector(
+    (state: any) => state.peliculas.total_results
+  );
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState<string>("");
@@ -47,7 +66,7 @@ export default function Home(): JSX.Element {
     dispatch(obtenerPeliculas(search));
   };
 
-  return (
+  return peliculas.length < 1 ? (
     <div>
       <Title>Bienvenido a Pelis</Title>
       <small>Aqui podrás encontrar tus peliculas favoritas</small>
@@ -63,5 +82,25 @@ export default function Home(): JSX.Element {
         </Button>
       </Form>
     </div>
+  ) : (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          value={search}
+          placeholder="Buscar..."
+        />
+        <Button type="submit">
+          <FaSearch />
+        </Button>
+      </Form>
+      <p>Resultados de la busqueda {total_results}</p>
+      <MovieContainer>
+        {peliculas.map((peli: Movie) => (
+          <MovieC movie={peli} key={peli.id} />
+        ))}
+      </MovieContainer>
+    </Container>
   );
 }
