@@ -3,6 +3,12 @@ export interface ThemeContext {
   toggle(): void;
 }
 
+type ProductionCompany = {
+  name: string;
+  id: number;
+  origin_country: string;
+};
+
 export type Movie = {
   backdrop_path: string | null;
   id: number;
@@ -15,4 +21,6 @@ export type Movie = {
   title: string;
   vote_average: number;
   vote_count: number;
+  adult?: boolean;
+  production_companies?: ProductionCompany[];
 };
