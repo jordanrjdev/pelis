@@ -3,11 +3,12 @@ import * as themeConf from "../theme";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { obtenerPeliculas } from "../Redux/pelisDuck";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Movie } from "../types";
 import MovieC from "./Movie";
 import Pagination from "./Pagination";
+import Detail from "./Detail";
 
 const MovieContainer = styled.div`
   display: flex;
@@ -58,6 +59,9 @@ export default function Home(): JSX.Element {
   const total_results = useSelector(
     (state: any) => state.peliculas.total_results
   );
+  const current_movie = useSelector(
+    (state: any) => state.peliculas.current_movie
+  );
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState<string>("");
@@ -84,25 +88,31 @@ export default function Home(): JSX.Element {
       </Form>
     </div>
   ) : (
-    <Container>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          onChange={(e) => setSearch(e.target.value)}
-          type="text"
-          value={search}
-          placeholder="Buscar..."
-        />
-        <Button type="submit">
-          <FaSearch />
-        </Button>
-      </Form>
-      <p>Resultados de la busqueda {total_results}</p>
-      <MovieContainer>
-        {peliculas.map((peli: Movie) => (
-          <MovieC movie={peli} key={peli.id} />
-        ))}
-      </MovieContainer>
-      <Pagination />
-    </Container>
+    <Fragment>
+      {current_movie ? (
+        <Detail movie={current_movie} />
+      ) : (
+        <Container>
+          <Form onSubmit={handleSubmit}>
+            <Input
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              value={search}
+              placeholder="Buscar..."
+            />
+            <Button type="submit">
+              <FaSearch />
+            </Button>
+          </Form>
+          <p>Resultados de la busqueda {total_results}</p>
+          <MovieContainer>
+            {peliculas.map((peli: Movie) => (
+              <MovieC movie={peli} key={peli.id} />
+            ))}
+          </MovieContainer>
+          <Pagination />
+        </Container>
+      )}
+    </Fragment>
   );
 }

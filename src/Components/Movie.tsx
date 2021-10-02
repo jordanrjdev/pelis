@@ -2,6 +2,9 @@ import { Movie as IMovie } from "../types";
 import styled from "styled-components";
 import * as themeConfig from "../theme";
 import StarRating from "./StartRating";
+import { selectMovie } from "../Redux/pelisDuck";
+import { useDispatch } from "react-redux";
+import { MovieImage } from "../StyleComponents/MovieImage";
 
 const MovieWrapper = styled.div`
   display: flex;
@@ -11,11 +14,6 @@ const MovieWrapper = styled.div`
   border-radius: 4px;
   max-width: 150px;
   margin: 1em;
-`;
-
-const MovieImage = styled.img`
-  height: 225px;
-  width: 100%;
 `;
 
 const MovieTitle = styled.h3`
@@ -33,8 +31,9 @@ export default function Movie({
 }: {
   movie: IMovie;
 }): React.ReactElement {
+  const dispatch = useDispatch();
   return (
-    <MovieWrapper>
+    <MovieWrapper onClick={() => dispatch(selectMovie(movie))}>
       <MovieImage
         src={
           movie.backdrop_path
