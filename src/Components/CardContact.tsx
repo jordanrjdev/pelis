@@ -3,34 +3,34 @@ import { Title } from "../StyleComponents/Title";
 import * as themeConf from "../theme";
 import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
+const CardWrapper = styled.div`
+  background-color: ${themeConf.inputBackgroundColor};
+  box-shadow: 0px 0px 4px ${themeConf.boxShadowColor};
+  padding: 3em;
+  border-radius: 0.1em;
+`;
+
+const CardImage = styled.img`
+  width: 80%;
+  border-radius: 50%;
+  margin-bottom: 0.2em;
+`;
+
+const SubTitle = styled.h5`
+  color: ${themeConf.textSecondaryColor};
+  font-size: 1.2em;
+  margin-bottom: 0.9em;
+`;
+
+const CardLink = styled.a`
+  > svg {
+    margin-right: 0.7em;
+    font-size: 1.5em;
+    color: ${themeConf.textColor};
+  }
+`;
+
 export default function CardContact(): React.ReactElement {
-  const CardWrapper = styled.div`
-    background-color: ${themeConf.inputBackgroundColor};
-    box-shadow: 0px 0px 4px ${themeConf.boxShadowColor};
-    padding: 3em;
-    border-radius: 0.1em;
-  `;
-
-  const CardImage = styled.img`
-    width: 80%;
-    border-radius: 50%;
-    margin-bottom: 0.2em;
-  `;
-
-  const SubTitle = styled.h5`
-    color: ${themeConf.textSecondaryColor};
-    font-size: 1.2em;
-    margin-bottom: 0.9em;
-  `;
-
-  const CardLink = styled.a`
-    > svg {
-      margin-right: 0.7em;
-      font-size: 1.5em;
-      color: ${themeConf.textColor};
-    }
-  `;
-
   return (
     <CardWrapper>
       <CardImage
